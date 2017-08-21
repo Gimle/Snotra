@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="A %s product.">Et produkt fra %s.</string>
+	<string name="Incorrect username or password.">Feil brukernavn eller passord.</string>
+	<string name="Invalid form data.">Feil i datastrøm.</string>
+	<string name="Password">Passord</string>
+	<string name="Sign in">Logg på</string>
+	<string name="sign out">logg av</string>
+	<string name="Signing in, please wait…">Logger på, vennligst vent…</string>
+	<string name="Timeout, try again.">Tidsavbrudd, prøv igjen.</string>
+	<string name="Username">Brukernavn</string>
+	<string name="Username or password missing.">Brukernavn eller passord mangler.</string>
+</resources>

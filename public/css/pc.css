@@ -1,0 +1,198 @@
+@font-face {
+	font-family: 'Quicksand';
+	font-style: normal;
+	font-weight: 300;
+	src: local('Quicksand Light'), local('Quicksand-Light'), url('../font/quicksand/Quicksand-light.otf') format('opentype');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+@font-face {
+	font-family: 'Quicksand';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Quicksand Regular'), local('Quicksand-Regular'), url('../font/quicksand/Quicksand-Regular.otf') format('opentype');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+:root {
+	--main-color-one: #f05033;
+	--main-color-two: #DC4226;
+	--main-color-three: #F96950;
+	--main-color-four: #de3314;
+}
+* {
+	box-sizing: inherit;
+}
+*:not(input) {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+
+	-webkit-user-drag: none;
+	user-drag: none;
+}
+*:not(input):not(button):not(a) {
+	cursor: default;
+}
+input[type="text"], input[type="password"] {
+	cursor: text;
+}
+input::selection {
+	background-color: var(--main-color-two);
+	color: #fff;
+}
+input:read-only {
+	color: #777;
+}
+input:read-only::selection {
+	background-color: #cdc;
+	color: #000;
+}
+button *, a * {
+	cursor: inherit !important;
+}
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+html {
+	box-sizing: border-box;
+	font-size: 1em;
+	color: #222;
+	font-family: arial, sans-serif;
+}
+html,
+body {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	overflow-x: hidden;
+}
+body {
+	background-color: #dcd6d5;
+}
+*:focus {
+	outline: none;
+}
+
+a {
+	color: #643900;
+}
+
+
+h1.signin {
+	text-align: center;
+	margin-top: 0;
+	padding-top: 30px;
+	font-size: 32px;
+	font-family: Quicksand;
+}
+h1.signin img {
+	height: 60px;
+}
+h1 img {
+	vertical-align: middle;
+}
+h1 span {
+	color: #f05033;
+}
+
+#signinBox {
+	width: 300px;
+	margin: auto;
+	padding-bottom: 30px;
+}
+#signinBox > div {
+	padding: 20px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fff;
+	margin-bottom: 20px;
+}
+#signinBox #feedback {
+	text-align: center;
+	margin-bottom: 10px;
+	color: #c00;
+	display: none;
+}
+
+#signinBox label {
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
+	display: block;
+	position: relative;
+}
+#signinBox label i.fa {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	color: #999;
+	display: inline-block;
+	width: 20px;
+}
+
+#signinBox label input {
+	padding: 8px 8px 8px 30px;
+	width: 100%;
+	border: 0;
+}
+#signinBox .signInButton {
+	border: 1px solid #ccc;
+	padding: 8px;
+	width: 100%;
+	background: linear-gradient(to bottom, var(--main-color-one) 0%, var(--main-color-two) 100%);
+	color: #eee;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+#signinBox .signInButton:not(:disabled):hover {
+	background: linear-gradient(to bottom, var(--main-color-three) 0%, var(--main-color-four) 100%);
+}
+#signinBox #langPicker {
+	margin-top: 10px;
+	text-align: center;
+	font-size: 0;
+}
+
+#signinBox #langPicker div {
+	width: 34px;
+	height: 25px;
+	display: inline-block;
+	overflow: hidden;
+	position: relative;
+	background-size: cover;
+	background-position: center;
+}
+#signinBox #langPicker div:not(:last-child) {
+	margin-right: 8px;
+}
+#signinBox p {
+	text-align: center;
+	font-size: 13px;
+	color: #777;
+	margin-bottom: 0;
+}
+
+#topBar {
+	font-family: Quicksand;
+	font-weight: bold;
+	background-color: #313131;
+	color: #fff;
+	padding: 4px 8px;
+}
+#topBar h1 {
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+}
+#topBar > div {
+	float: right;
+	padding: 5px;
+}
+#topBar > div a {
+	color: #ccc;
+	text-decoration: none;
+}
+#topBar > div a:hover {
+	color: #fff;
+	text-decoration: none;
+}
