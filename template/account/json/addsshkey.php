@@ -47,14 +47,14 @@ if (!$checkForm->validate()) {
 
 $usedTitles = [];
 $usedKeys = [];
-if (file_exists('/home/tux/gitolite-admin/keydir/' . $_SESSION['user'])) {
-	foreach (new \DirectoryIterator('/home/tux/gitolite-admin/keydir/' . $_SESSION['user']) as $fileInfo) {
+if (file_exists(Config::get('dir.gitolite-admin') . 'keydir/' . $_SESSION['user'])) {
+	foreach (new \DirectoryIterator(Config::get('dir.gitolite-admin') . 'keydir/' . $_SESSION['user']) as $fileInfo) {
 		$fileName = $fileInfo->getFilename();
 		if (substr($fileName, 0, 1) === '.') {
 			continue;
 		}
 		$usedTitles[] = $fileName;
-		$fullName = '/home/tux/gitolite-admin/keydir/' . $_SESSION['user'] . '/' . $fileName . '/' . $_SESSION['user'] . '.pub';
+		$fullName = Config::get('dir.gitolite-admin') . 'keydir/' . $_SESSION['user'] . '/' . $fileName . '/' . $_SESSION['user'] . '.pub';
 		$usedKeys[] = trim(file_get_contents($fullName));
 	}
 }
