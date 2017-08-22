@@ -27,6 +27,19 @@ header('Content-type: text/html; charset=' . mb_internal_encoding());
 		<script>
 			gimle = {};
 			gimle.BASE_PATH = '<?=BASE_PATH?>';
+
+			jQuery(($) => {
+				var keepAlive = function () {
+					setTimeout(() => {
+						$.ajax({
+							url: gimle.BASE_PATH + 'keepalive',
+							method: 'GET'
+						});
+						keepAlive();
+					}, 300000);
+				};
+				keepAlive();
+			});
 		</script>
 	</head>
 	<body>

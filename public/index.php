@@ -44,6 +44,10 @@ else {
 	$router->bind('pc', 'signout', function () use ($router) {
 		return $router->setCanvas('dosignout', false);
 	});
+	$router->bind('pc', 'keepalive', function () use ($router) {
+		$router->setCanvas('json');
+		return $router->setTemplate('keepalive');
+	});
 	$router->bind('pc', 'addsshkey', function () use ($router) {
 		$router->setCanvas('json');
 		return $router->setTemplate('account/json/addsshkey');
