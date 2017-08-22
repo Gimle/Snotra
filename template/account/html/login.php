@@ -4,10 +4,10 @@ namespace gimle;
 
 use \gimle\canvas\Canvas;
 
+Canvas::title(_('Sign in') . ' | Snotra');
+
 $form = new Form();
 $form->setProperty('signin', true);
-
-Canvas::title(_('Sign in') . ' | Snotra');
 
 ?>
 <script>
