@@ -196,3 +196,34 @@ h1 span {
 	color: #fff;
 	text-decoration: none;
 }
+
+
+main {
+	max-width: 800px;
+	margin: auto;
+	border: 1px solid #777;
+	background-color: #ccc;
+	border-top: 0;
+	padding: 20px;
+}
+main h1 {
+	margin: 0;
+	margin-bottom: 14px;
+}
+main #addKey label {
+	display: block;
+	margin-bottom: 14px;
+}
+main #addKey label .title {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+main #addKey label textarea {
+	width: 100%;
+	height: 100px;
+}
+main #feedback {
+	margin-bottom: 14px;
+	color: #c00;
+}
