@@ -9,6 +9,6 @@ if (isset($_POST['lang'])) {
 	return true;
 }
 
-echo json_encode('123');
+echo json_encode(false);
 
 return true;
