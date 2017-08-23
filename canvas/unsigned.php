@@ -18,7 +18,7 @@ header('Content-type: text/html; charset=' . mb_internal_encoding());
 		<link rel="author" href="<?=BASE_PATH?>humans.txt">
 
 		<link rel="shortcut icon" href="<?=BASE_PATH?>favicon.png" type="image/x-icon">
-		<script src="https://www.trollgården.no/js/jquery-3.2.1.min.js"></script>
+		<script src="<?=BASE_PATH?>js/jquery-3.2.1.min.js"></script>
 
 		<link rel="stylesheet" href="<?=BASE_PATH?>font-awesome-4.7.0/css/font-awesome.min.css">
 
