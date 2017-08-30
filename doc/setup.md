@@ -14,3 +14,20 @@ This repository uses git submodules to be sure to clone this repository with sub
 Local configuration is done in the config.ini file. Makes sure the values there reflect your setup.
 
 Most of the setup should be documented in the [Gimle phpFramework](https://github.com/Gimle/phpFramework) but at the time of writing that is not ready yet. Both documentation for manual setup, and a debian package is still on the horizon.
+
+System setup
+------------
+If you want snotra to be able to perform git commands as a system user add:
+```bash
+www-data ALL=(ALL) NOPASSWD: /bin/bash, /usr/bin/git
+```
+to ```visudo```.
+
+Apache mpm_itk_module addon
+---------------------------
+```apache
+<IfModule mpm_itk_module>
+	LimitUIDRange 0 6000
+	LimitGIDRange 0 6000
+</IfModule>
+```
