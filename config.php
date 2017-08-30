@@ -7,12 +7,12 @@ return [
 		'lang' => [
 			'en' => [
 				'objects' => [
-					'android' => ['static://en.xml']
+					'android' => ['static://i18n/en.xml']
 				]
 			],
 			'no' => [
 				'objects' => [
-					'android' => ['static://no.xml']
+					'android' => ['static://i18n/no.xml']
 				]
 			],
 		]
