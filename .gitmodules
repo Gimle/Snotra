@@ -2,5 +2,5 @@
 	path = module/gimle
 	url = https://github.com/Gimle/phpFramework.git
 [submodule "module/Git"]
-	path = module/Git
+	path = module/git
 	url = https://github.com/Gimle/Git.git
