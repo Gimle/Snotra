@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace gimle;
 
+use \gimle\git\Gitolite;
+
 function returnError ($errno, $errmsg): void
 {
 	$form = new Form();
@@ -45,27 +47,20 @@ if (!$checkForm->validate()) {
 	return true;
 }
 
-$usedTitles = [];
-$usedKeys = [];
-if (file_exists(Config::get('dir.gitolite-admin') . 'keydir/' . $_SESSION['user'])) {
-	foreach (new \DirectoryIterator(Config::get('dir.gitolite-admin') . 'keydir/' . $_SESSION['user']) as $fileInfo) {
-		$fileName = $fileInfo->getFilename();
-		if (substr($fileName, 0, 1) === '.') {
-			continue;
-		}
-		$usedTitles[] = $fileName;
-		$fullName = Config::get('dir.gitolite-admin') . 'keydir/' . $_SESSION['user'] . '/' . $fileName . '/' . $_SESSION['user'] . '.pub';
-		$usedKeys[] = trim(file_get_contents($fullName));
-	}
+// Ok, so tests did pass, now lets add the key!
+$gitolite = Gitolite::getInstance();
+try {
+	$gitolite->addSshKey($_POST['sshkey'], $_SESSION['user'], $title);
 }
+catch (Exception $e) {
+	$form = new Form();
+	$form->setProperty('addsshkey', true);
 
-if (in_array($title, $usedTitles)) {
-	returnError(5, _('Title in use.'));
-	return true;
-}
-
-if (in_array(trim($_POST['sshkey']), $usedKeys)) {
-	returnError(6, _('Key in use.'));
+	echo json_encode([
+		'errno' => 7,
+		'errmsg' => $e->getMessage(),
+		'token' => $form->getId()
+	]);
 	return true;
 }
 

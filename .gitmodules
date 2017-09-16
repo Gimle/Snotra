@@ -1,3 +1,6 @@
 [submodule "module/gimle"]
 	path = module/gimle
 	url = https://github.com/Gimle/phpFramework.git
+[submodule "module/Git"]
+	path = module/Git
+	url = https://github.com/Gimle/Git.git
