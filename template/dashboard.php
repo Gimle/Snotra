@@ -6,33 +6,35 @@ use \gimle\canvas\Canvas;
 
 Canvas::title(_('Dashboard') . ' | Snotra');
 
-$form = new Form();
-$form->setProperty('signin', true);
-
 ?>
 <script>
 	jQuery(($) => {
 		$('#addKey').on('submit', (e) => {
 			e.preventDefault();
+			$('#feedback').show();
+			$('#feedback').html('Working…');
+			var cache = $('#keyList').html();
+			$('#keyList').html('<hr/>Loading…');
 			var $form = $('#addKey');
 			$.ajax({
 				url: $form.attr('action'),
 				method: $form.attr('method'),
 				data: $form.serialize()
 			}).always((r) => {
-				if (r.token !== undefined) {
-					$('[name="token"]').val(r.token);
-					if (r.errmsg !== undefined) {
-						$('#feedback').show();
-						$('#feedback').html(r.errmsg);
-					}
+				if (r.errmsg !== undefined) {
+					$('#feedback').show();
+					$('#feedback').html(r.errmsg);
 				}
 				if (r.title !== undefined) {
 					$('#feedback').hide();
+					$('#keyList').load(gimle.BASE_PATH + 'getsshkeys');
 				}
-				console.log(r);
+				else {
+					$('#keyList').html(cache);
+				}
 			});
 		});
+		$('#keyList').load(gimle.BASE_PATH + 'getsshkeys');;
 	});
 </script>
 <header id="topBar">
@@ -46,12 +48,10 @@ $form->setProperty('signin', true);
 
 <main>
 	<h1><?=_('Manage ssh keys')?></h1>
-	<div id="keyList"></div>
-	<form id="addKey" action="<?=MAIN_BASE_PATH?>addsshkey" method="POST">
-		<input type="hidden" name="token" value="<?=$form->getId()?>">
+	<form id="addKey" action="<?=BASE_PATH?>addsshkey" method="POST">
 		<label>
 			<span class="title"><?=_('Title:')?></span>
-			<input name="title" type="text" placeholder="<?=_('my-machine-name')?>"/>
+			<input name="title" type="text" placeholder="<?=_('my-key-name')?>" style="padding: 2px 3px;"/>
 			<span class="tip"><?=_('If left blank the value will be taken from the key.')?></span>
 		</label>
 		<label>
@@ -61,6 +61,7 @@ $form->setProperty('signin', true);
 		<div id="feedback"></div>
 		<button><?=_('Add')?></button>
 	</form>
+	<div id="keyList"><hr/>Loading…</div>
 </main>
 <?php
 return true;

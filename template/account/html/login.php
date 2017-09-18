@@ -56,7 +56,7 @@ $form->setProperty('signin', true);
 	<div>
 		<div id="feedback"></div>
 
-		<form action="<?=MAIN_BASE_PATH?>checkSignIn" method="POST" id="doSignIn">
+		<form action="<?=MAIN_BASE_PATH?>checksignin" method="POST" id="doSignIn">
 			<input type="hidden" name="token" value="<?=$form->getId()?>">
 			<label>
 				<i class="fa fa-user"></i>

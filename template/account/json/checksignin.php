@@ -4,13 +4,9 @@ namespace gimle;
 
 function returnError ($errno, $errmsg): void
 {
-	$form = new Form();
-	$form->setProperty('signin', true);
-
 	echo json_encode([
 		'errno' => $errno,
-		'errmsg' => $errmsg,
-		'token' => $form->getId()
+		'errmsg' => $errmsg
 	]);
 }
 
@@ -21,13 +17,6 @@ if ((!isset($_POST['token'])) || (!isset($_POST['username'])) || (!isset($_POST[
 
 if (($_POST['username'] === '') || ($_POST['password'] === '')) {
 	returnError(2, _('Username or password missing.'));
-	return true;
-}
-
-$checkForm = Form::getInstance($_POST['token']);
-
-if (!$checkForm->validate()) {
-	returnError(3, _('Timeout, try again.'));
 	return true;
 }
 

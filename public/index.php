@@ -32,7 +32,7 @@ if (!isset($_SESSION['user'])) {
 	$router->bind('pc', '', function () use ($router) {
 		return $router->setTemplate('account/html/login');
 	});
-	$router->bind('pc', 'checkSignIn', function () use ($router) {
+	$router->bind('pc', 'checksignin', function () use ($router) {
 		$router->setCanvas('json');
 		return $router->setTemplate('account/json/checksignin');
 	}, Router::R_POST);
@@ -52,6 +52,14 @@ else {
 		$router->setCanvas('json');
 		return $router->setTemplate('account/json/addsshkey');
 	}, Router::R_POST);
+	$router->bind('pc', 'deletesshkey', function () use ($router) {
+		$router->setCanvas('json');
+		return $router->setTemplate('account/json/deletesshkey');
+	}, Router::R_POST);
+	$router->bind('pc', 'getsshkeys', function () use ($router) {
+		$router->setCanvas('json');
+		return $router->setTemplate('account/html/getsshkeys');
+	});
 }
 
 $router->dispatch();
