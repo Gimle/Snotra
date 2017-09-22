@@ -3,6 +3,11 @@ declare(strict_types=1);
 namespace gimle;
 
 header('Content-type: text/html; charset=' . mb_internal_encoding());
+
+$gitolite = git\Gitolite::getInstance();
+
+$gitoliteConfig = $gitolite->configToXml();
+
 ?>
 <!doctype html>
 <html lang="%lang%">
@@ -43,7 +48,45 @@ header('Content-type: text/html; charset=' . mb_internal_encoding());
 		</script>
 	</head>
 	<body>
-		%content%
+		<header id="topBar">
+			<div style="width: 1000px; margin: auto;">
+				<div>
+					<i class="fa fa-bars" aria-hidden="true"></i>
+				</div>
+				<h1><img src="<?=BASE_PATH?>favicon.png"/> Snotra <span>git</span></h1>
+			</div>
+		</header>
+
+		<div style="width: 1000px; margin: auto; display: grid; grid-template-columns: 200px 800px;">
+			<div style="padding: 20px 0;">
+				<ul style="list-style-type: none; padding: 0; margin: 0;">
+<?php
+if (isset($_SESSION['user'])) {
+?>
+					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>" style="text-decoration: none;"><i class="fa fa-key" aria-hidden="true"></i> <?=_('My ssh keys')?></a></li>
+					<li style="margin-bottom: 4px;"><i class="fa fa-code-fork" aria-hidden="true"></i> <?=_('My repos')?></li>
+					<?php
+	if ($gitoliteConfig->isAdmin($_SESSION['user'])) {
+?>
+					<li style="margin-bottom: 4px;"><i class="fa fa-cog" aria-hidden="true"></i> <?=_('Gitolite Admin')?></li>
+<?php
+	}
+	if ((is_array(Config::get('play'))) && (in_array($_SESSION['user'], Config::get('play')))) {
+?>
+					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>playground" style="text-decoration: none;"><i class="fa fa-gamepad" aria-hidden="true"></i> <?=_('Playground')?></a></li>
+<?php
+	}
+?>
+					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>signout" style="text-decoration: none;"><i class="fa fa-sign-out" aria-hidden="true"></i> <?=_('Sign out')?></a></li>
+<?php
+}
+?>
+				</ul>
+			</div>
+			<main>
+				%content%
+			</main>
+		</div>
 	</body>
 </html>
 <?php

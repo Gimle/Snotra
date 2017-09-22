@@ -30,6 +30,7 @@ $router->bind('pc', 'setLanguage', function () use ($router) {
 
 if (!isset($_SESSION['user'])) {
 	$router->bind('pc', '', function () use ($router) {
+		$router->setCanvas('unsigned');
 		return $router->setTemplate('account/html/login');
 	});
 	$router->bind('pc', 'checksignin', function () use ($router) {
@@ -44,6 +45,11 @@ else {
 	$router->bind('pc', 'signout', function () use ($router) {
 		return $router->setCanvas('dosignout', false);
 	});
+	if ((is_array(Config::get('play'))) && (in_array($_SESSION['user'], Config::get('play')))) {
+		$router->bind('pc', 'playground', function () use ($router) {
+			return $router->setTemplate('playground', false);
+		});
+	}
 	$router->bind('pc', 'keepalive', function () use ($router) {
 		$router->setCanvas('json');
 		return $router->setTemplate('keepalive');

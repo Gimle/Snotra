@@ -184,11 +184,11 @@ h1 span {
 	margin: 0;
 	padding: 0;
 }
-#topBar > div {
+#topBar > div > div {
 	float: right;
 	padding: 5px;
 }
-#topBar > div a {
+#topBar > div > div a {
 	color: #ccc;
 	text-decoration: none;
 }
@@ -199,12 +199,11 @@ h1 span {
 
 
 main {
-	max-width: 800px;
+	width: 800px;
 	margin: auto;
 	border: 1px solid #777;
 	background-color: #ccc;
 	border-top: 0;
-	padding: 20px;
 }
 main h1 {
 	margin: 0;

@@ -37,16 +37,8 @@ Canvas::title(_('Dashboard') . ' | Snotra');
 		$('#keyList').load(gimle.BASE_PATH + 'getsshkeys');;
 	});
 </script>
-<header id="topBar">
-	<div style="">
-		<a href="<?=BASE_PATH?>signout">
-			<i class="fa fa-sign-out" aria-hidden="true"></i> <?=_('sign out')?>
-		</a>
-	</div>
-	<h1><img src="<?=BASE_PATH?>favicon.png"/> Snotra <span>git</span></h1>
-</header>
 
-<main>
+<div style="padding: 20px;">
 	<h1><?=_('Manage ssh keys')?></h1>
 	<form id="addKey" action="<?=BASE_PATH?>addsshkey" method="POST">
 		<label>
@@ -62,6 +54,6 @@ Canvas::title(_('Dashboard') . ' | Snotra');
 		<button><?=_('Add')?></button>
 	</form>
 	<div id="keyList"><hr/>Loading…</div>
-</main>
+</div>
 <?php
 return true;
