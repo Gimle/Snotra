@@ -5,7 +5,6 @@ namespace gimle;
 header('Content-type: text/html; charset=' . mb_internal_encoding());
 
 $gitolite = git\Gitolite::getInstance();
-
 $gitoliteConfig = $gitolite->configToXml();
 
 ?>
@@ -53,7 +52,7 @@ $gitoliteConfig = $gitolite->configToXml();
 				<div>
 					<i class="fa fa-bars" aria-hidden="true"></i>
 				</div>
-				<h1><img src="<?=BASE_PATH?>favicon.png"/> Snotra <span>git</span></h1>
+				<h1><a href="<?=BASE_PATH?>" style="text-decoration: none; color: #fff;"><img src="<?=BASE_PATH?>favicon.png"/> Snotra <span>git</span></a></h1>
 			</div>
 		</header>
 
@@ -63,12 +62,12 @@ $gitoliteConfig = $gitolite->configToXml();
 <?php
 if (isset($_SESSION['user'])) {
 ?>
-					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>" style="text-decoration: none;"><i class="fa fa-key" aria-hidden="true"></i> <?=_('My ssh keys')?></a></li>
+					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>account/sshkeys" style="text-decoration: none;"><i class="fa fa-key" aria-hidden="true"></i> <?=_('My ssh keys')?></a></li>
 					<li style="margin-bottom: 4px;"><i class="fa fa-code-fork" aria-hidden="true"></i> <?=_('My repos')?></li>
 					<?php
 	if ($gitoliteConfig->isAdmin($_SESSION['user'])) {
 ?>
-					<li style="margin-bottom: 4px;"><i class="fa fa-cog" aria-hidden="true"></i> <?=_('Gitolite Admin')?></li>
+					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>gitomin" style="text-decoration: none;"><i class="fa fa-cog" aria-hidden="true"></i> <?=_('Gitolite Admin')?></a></li>
 <?php
 	}
 	if ((is_array(Config::get('play'))) && (in_array($_SESSION['user'], Config::get('play')))) {
@@ -83,7 +82,7 @@ if (isset($_SESSION['user'])) {
 ?>
 				</ul>
 			</div>
-			<main>
+			<main style="height: 100%;">
 				%content%
 			</main>
 		</div>

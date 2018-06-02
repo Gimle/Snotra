@@ -23,6 +23,7 @@ Import your public key, so you can manage gitolite with git and make sure snotra
 cp ~/.ssh/id_rsa.pub /tmp/$(whoami).pub
 # Changge to be the git user, but keep your environment variabled, so ```${SUDO_USER}``` will contain your username.
 sudo su git
+cd
 # Setup gitolite and set you as the administrator (using the public key you copied before).
 gitolite setup -pk /tmp/${SUDO_USER}.pub
 # Open the rc file for gitolite for editing.
@@ -31,9 +32,13 @@ editor .gitolite.rc
 Change the UMASK value from 0077 to ```0007``` save and exit. This makes all files created have read and write permission for the user group, which makes snotra able to interact with it. Tip: Using the ```editor``` command will start your default editor. Which editor that will be started can be configured many different ways, so that is not documented here.
 
 ```bash
-cd repositories
+# Remove the public key from the temp directory.
+rm /tmp/$(whoami).pub
+exit
+sudo su -
+cd ~git/repositories
 # Change the group of all files to users, so apache can run with mpm_itk as this group to modify the files.
-sudo chgrp -R users .
+chgrp -R users .
 # Set a sticky bit on all the files, so any new file created will be owned by the same group.
 find . -type d -print0| xargs -0 chmod g+s
 # Find all directories and let the group have full permission.
@@ -41,8 +46,6 @@ find . -type d -print0| xargs -0 chmod 770
 # Find all files and let the group have full permission.
 find . -type f -print0| xargs -0 chmod 660
 exit
-# Remove the public key from the temp directory.
-rm /tmp/$(whoami).pub
 ```
 
 Administration repository
