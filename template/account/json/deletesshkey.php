@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace gimle;
 
 use \gimle\git\Gitolite;
+use \gimle\user\User;
 
 function returnError ($errno, $errmsg): void
 {
@@ -19,11 +20,11 @@ if (!isset($_POST['name'])) {
 
 $gitolite = Gitolite::getInstance();
 
-$key = $gitolite->getSshKey($_SESSION['user'], $_POST['name']);
+$key = $gitolite->getSshKey(User::current()['snotra'], $_POST['name']);
 
 if ($key !== null) {
 	try {
-		$gitolite->deleteSshKey($_SESSION['user'], $_POST['name']);
+		$gitolite->deleteSshKey(User::current()['snotra'], $_POST['name']);
 		echo json_encode(true);
 	}
 	catch (Exception $e) {

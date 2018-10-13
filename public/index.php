@@ -4,6 +4,7 @@ namespace gimle;
 
 use \gimle\router\Router;
 use \gimle\canvas\Canvas;
+use \gimle\user\User;
 
 /**
  * The local absolute location of the site.
@@ -26,16 +27,27 @@ $router->bind('pc', 'manifest.json', function () use ($router) {
 });
 
 inc(SITE_DIR . 'inc/session.php');
+if (isset($_SESSION['gimle']['user'])) {
+	if (!isset($_SESSION['gimle']['user']['snotra'])) {
+		if (isset($_SESSION['gimle']['user']['pam'])) {
+			$_SESSION['gimle']['user']['snotra'] = $_SESSION['gimle']['user']['pam'];
+		}
+	}
+}
+
 $router->bind('pc', 'setLanguage', function () use ($router) {
 	$router->setCanvas('json');
 	return $router->setTemplate('setlanguage');
 }, Router::R_POST);
 
-if (!isset($_SESSION['user'])) {
-	$router->bind('pc', 'checksignin', function () use ($router) {
-		$router->setCanvas('json');
-		return $router->setTemplate('account/json/checksignin');
-	}, Router::R_POST);
+/* -- Account -- */
+$router->bind('pc', 'process/:canvas', function () use ($router) {
+	inc(SITE_DIR . 'inc/session.php');
+	$router->setCanvas('process' . page('canvas'));
+}, ['canvas' => 'signin|signout'], Router::R_POST | Router::R_GET);
+/* == Account == */
+
+if (User::current() === null) {
 	$router->bind('pc', '.*', function () use ($router) {
 		$router->setCanvas('unsigned');
 		return $router->setTemplate('account/html/login');
@@ -54,12 +66,12 @@ else {
 	$router->bind('pc', 'signout', function () use ($router) {
 		return $router->setCanvas('dosignout', false);
 	});
-	if ((is_array(Config::get('play'))) && (in_array($_SESSION['user'], Config::get('play')))) {
+	if ((is_array(Config::get('play'))) && (in_array(User::current()['snotra'], Config::get('play')))) {
 		$router->bind('pc', 'playground', function () use ($router) {
 			return $router->setTemplate('playground', false);
 		});
 	}
-	if ($gitoliteConfig->isAdmin($_SESSION['user'])) {
+	if ($gitoliteConfig->isAdmin(User::current()['snotra'])) {
 		$router->bind('pc', ':template', function () use ($router) {
 			return $router->setTemplate(page('template'));
 		}, ['template' => 'gitomin']);

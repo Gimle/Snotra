@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace gimle;
 
+use \gimle\user\User;
+
 header('Content-type: text/html; charset=' . mb_internal_encoding());
 
 $gitolite = git\Gitolite::getInstance();
@@ -29,7 +31,7 @@ $gitoliteConfig = $gitolite->configToXml();
 		<link rel="stylesheet" href="<?=BASE_PATH?>css/pc.css">
 
 		<script>
-			gimle = {};
+			window.gimle = {};
 			gimle.BASE_PATH = '<?=BASE_PATH?>';
 
 			jQuery(($) => {
@@ -60,23 +62,23 @@ $gitoliteConfig = $gitolite->configToXml();
 			<div style="padding: 20px 0;">
 				<ul style="list-style-type: none; padding: 0; margin: 0;">
 <?php
-if (isset($_SESSION['user'])) {
+if (User::current() !== null) {
 ?>
 					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>account/sshkeys" style="text-decoration: none;"><i class="fa fa-key" aria-hidden="true"></i> <?=_('My ssh keys')?></a></li>
 					<li style="margin-bottom: 4px;"><i class="fa fa-code-fork" aria-hidden="true"></i> <?=_('My repos')?></li>
 					<?php
-	if ($gitoliteConfig->isAdmin($_SESSION['user'])) {
+	if ($gitoliteConfig->isAdmin(User::current()['snotra'])) {
 ?>
 					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>gitomin" style="text-decoration: none;"><i class="fa fa-cog" aria-hidden="true"></i> <?=_('Gitolite Admin')?></a></li>
 <?php
 	}
-	if ((is_array(Config::get('play'))) && (in_array($_SESSION['user'], Config::get('play')))) {
+	if ((is_array(Config::get('play'))) && (in_array(User::current()['snotra'], Config::get('play')))) {
 ?>
 					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>playground" style="text-decoration: none;"><i class="fa fa-gamepad" aria-hidden="true"></i> <?=_('Playground')?></a></li>
 <?php
 	}
 ?>
-					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>signout" style="text-decoration: none;"><i class="fa fa-sign-out" aria-hidden="true"></i> <?=_('Sign out')?></a></li>
+					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>process/signout" style="text-decoration: none;"><i class="fa fa-sign-out" aria-hidden="true"></i> <?=_('Sign out')?></a></li>
 <?php
 }
 ?>

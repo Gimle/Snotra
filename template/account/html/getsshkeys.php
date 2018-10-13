@@ -3,10 +3,11 @@ declare(strict_types=1);
 namespace gimle;
 
 use \gimle\git\Gitolite;
+use \gimle\user\User;
 
 $gitolite = Gitolite::getInstance();
 
-$keys = $gitolite->getSshKeys($_SESSION['user'], true);
+$keys = $gitolite->getSshKeys(User::current()['snotra'], true);
 if (empty($keys)) {
 ?>
 <p>No ssh keys added.</p>
@@ -51,7 +52,7 @@ else {
 <h2><?=$title?></h2>
 <div style="font-family: Arial; font-size: 13px;">
 	<p><b>Fingerprint:</b> <span style="font-family: Monospace;"><?=$key['fingerprint']?></span></p>
-	<p><b>Added</b>: <?=date('d.m.Y H:i:s', strtotime($key['datetime']))?></p>
+	<p><b>Added</b>: <?=($key['datetime'] !== null ? date('d.m.Y H:i:s', strtotime($key['datetime'])) : 'Unknown')?></p>
 </div>
 <?php
 	}

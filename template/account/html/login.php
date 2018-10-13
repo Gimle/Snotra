@@ -3,11 +3,11 @@ declare(strict_types=1);
 namespace gimle;
 
 use \gimle\canvas\Canvas;
+use \gimle\user\User;
 
 Canvas::title(_('Sign in') . ' | Snotra');
 
-$form = new Form();
-$form->setProperty('signin', true);
+$token = User::generateSigninToken();
 
 ?>
 <script>
@@ -27,6 +27,7 @@ $form->setProperty('signin', true);
 					location.reload();
 				}
 				else {
+					$('.signInButton').html('<?=_('Sign in failed.')?>');
 					if (r.token !== undefined) {
 						$('[name="token"]').val(r.token);
 					}
@@ -56,8 +57,8 @@ $form->setProperty('signin', true);
 	<div>
 		<div id="feedback"></div>
 
-		<form action="<?=MAIN_BASE_PATH?>checksignin" method="POST" id="doSignIn">
-			<input type="hidden" name="token" value="<?=$form->getId()?>">
+		<form action="<?=MAIN_BASE_PATH?>process/signin" method="POST" id="doSignIn">
+			<input type="hidden" name="token" value="<?=$token?>">
 			<label>
 				<i class="fa fa-user"></i>
 				<input name="username" type="text" placeholder="<?=_('Username')?>"></input>
