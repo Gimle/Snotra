@@ -63,12 +63,15 @@ else {
 	$router->bind('pc', 'account/sshkeys', function () use ($router) {
 		return $router->setTemplate('account/html/sshkeys');
 	});
+	$router->bind('pc', 'myrepos', function () use ($router) {
+		return $router->setTemplate('myrepos');
+	});
 	$router->bind('pc', 'signout', function () use ($router) {
 		return $router->setCanvas('dosignout', false);
 	});
 	if ((is_array(Config::get('play'))) && (in_array(User::current()['snotra'], Config::get('play')))) {
 		$router->bind('pc', 'playground', function () use ($router) {
-			return $router->setTemplate('playground', false);
+			return $router->setTemplate('playground');
 		});
 	}
 	if ($gitoliteConfig->isAdmin(User::current()['snotra'])) {

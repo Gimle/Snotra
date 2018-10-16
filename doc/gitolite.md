@@ -1,7 +1,7 @@
 Install gitolite
 ================
 
-On Ubuntu 17.01
+On Ubuntu 18.04
 ---------------
 
 ```bash

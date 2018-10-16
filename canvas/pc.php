@@ -65,7 +65,7 @@ $gitoliteConfig = $gitolite->configToXml();
 if (User::current() !== null) {
 ?>
 					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>account/sshkeys" style="text-decoration: none;"><i class="fa fa-key" aria-hidden="true"></i> <?=_('My ssh keys')?></a></li>
-					<li style="margin-bottom: 4px;"><i class="fa fa-code-fork" aria-hidden="true"></i> <?=_('My repos')?></li>
+					<li style="margin-bottom: 4px;"><a href="<?=BASE_PATH?>myrepos" style="text-decoration: none;"><i class="fa fa-code-fork" aria-hidden="true"></i> <?=_('My repos')?></a></li>
 					<?php
 	if ($gitoliteConfig->isAdmin(User::current()['snotra'])) {
 ?>

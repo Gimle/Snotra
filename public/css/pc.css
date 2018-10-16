@@ -21,20 +21,6 @@
 * {
 	box-sizing: inherit;
 }
-*:not(input) {
-	user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-
-	-webkit-user-drag: none;
-	user-drag: none;
-}
-*:not(input):not(button):not(a) {
-	cursor: default;
-}
-input[type="text"], input[type="password"] {
-	cursor: text;
-}
 input::selection {
 	background-color: var(--main-color-two);
 	color: #fff;
